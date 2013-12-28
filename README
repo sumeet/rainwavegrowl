@@ -1,0 +1,6 @@
+Shows Growl notifications whenever the track on chiptune.rainwave.cc changes.
+
+TODO
+
+Make this work with sites other than chiptune.rainwave.cc.
+Error handling.
