@@ -24,7 +24,7 @@ class Rainwave
   end
 end
 
-class Display
+class GrowlDisplay
   def show_alert song
     notification = Growl.new
     # notification.url = song.url   Gemfiles version doesn't support this yet! :(
@@ -49,6 +49,24 @@ class Display
   end
 end
 
+class ConsoleDisplay
+  def show_alert song
+    puts song
+  end
+end
+
+class GrowlAndConsoleDisplay
+  def initialize
+    @growl_display = GrowlDisplay.new
+    @console_display = ConsoleDisplay.new
+  end
+
+  def show_alert song
+    @growl_display.show_alert song
+    @console_display.show_alert song
+  end
+end
+
 def every_n_seconds n
   loop do
     yield
@@ -58,7 +76,7 @@ end
 
 class Poller
   def initialize
-    @display = Display.new
+    @display = GrowlAndConsoleDisplay.new
     @rainwave = Rainwave.new
     @last_song = nil
   end
