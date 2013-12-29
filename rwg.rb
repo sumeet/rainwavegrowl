@@ -56,13 +56,22 @@ def every_n_seconds n
   end
 end
 
-display = Display.new
-rainwave = Rainwave.new
+class Poller
+  def initialize
+    @display = Display.new
+    @rainwave = Rainwave.new
+    @last_song = nil
+  end
 
-last_song = nil
+  def get_current_track_and_alert_if_it_changed
+    song = @rainwave.get_current_song
+    @display.show_alert song if @last_song != song
+    @last_song = song
+  end
+end
+
+poller = Poller.new
 
 every_n_seconds 10 do
-  song = rainwave.get_current_song
-  display.show_alert rainwave.get_current_song if last_song != song
-  last_song = song
+  poller.get_current_track_and_alert_if_it_changed
 end
