@@ -29,7 +29,7 @@ class Display
     notification = Growl.new
     # notification.url = song.url   Gemfiles version doesn't support this yet! :(
     notification.title = song.title
-    notification.message = "#{song.artist} (#{song.album})"
+    notification.message = "#{song.artist}\n\n#{song.album}"
     create_tempfile song.image_url do |path|
       notification.image = path
       notification.run
